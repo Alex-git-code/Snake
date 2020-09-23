@@ -1,10 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/game_menu"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:background="@mipmap/background">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <ImageView
+        android:id="@+id/imgLogoSnake"
+        android:layout_width="200dp"
+        android:layout_height="130dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="115dp"
+        app:srcCompat="@mipmap/logo"
+        android:contentDescription="@string/game_logo" />
+
+    <Button
+        android:id="@+id/btnStartGame"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="@string/start_game"
+        android:textSize="18sp"
+        android:background="@mipmap/button"
+        android:textColor="@color/colorYellow"
+        android:layout_below="@id/imgLogoSnake"
+        />
+    <Button
+        android:id="@+id/btnPlayerProfile"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="@string/profile"
+        android:textSize="18sp"
+        android:background="@mipmap/button"
+        android:textColor="@color/colorYellow"
+        android:layout_below="@id/btnStartGame"
+        />
+
+    <Button
+        android:id="@+id/btnPlayerRank"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="@string/ranking"
+        android:textSize="18sp"
+        android:background="@mipmap/button"
+        android:textColor="@color/colorYellow"
+        android:layout_below="@id/btnPlayerProfile"
+        />
+
+    <Button
+        android:id="@+id/btnPlayerSettings"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="@string/settings"
+        android:textSize="18sp"
+        android:background="@mipmap/button"
+        android:textColor="@color/colorYellow"
+        android:layout_below="@id/btnPlayerRank"
+        />
+
+</RelativeLayout>
