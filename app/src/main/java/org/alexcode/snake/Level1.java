@@ -40,7 +40,7 @@ public class Level1 extends AppCompatActivity {
     int blockSize, numBlocksWide, numBlocksHigh, screenWidth, screenHeight;
     //score
     int score = 0, hiScore = 0;
-    String playerName;
+    int playerId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +48,7 @@ public class Level1 extends AppCompatActivity {
         configureDisplay();
         playGroundView = new PlayGroundView(this);
         setContentView(playGroundView);
-        playerName =  PlayerPreferences.getPlayerName();
+        playerId =  PlayerPreferences.getPlayerId();
         updatePlayerHiScore();
     }
 
@@ -370,7 +370,7 @@ public class Level1 extends AppCompatActivity {
     }
 
     private void updatePlayerHiScore() {
-        Call<ApiResponse> call = ApiClient.getApiClient().create(ApiInterface.class).getPlayerHiScore(playerName);
+        Call<ApiResponse> call = ApiClient.getApiClient().create(ApiInterface.class).getPlayerHiScore(playerId);
         call.enqueue(new Callback<ApiResponse>() {
             @Override
             public void onResponse(Call<ApiResponse> call, Response<ApiResponse> response) {
@@ -378,12 +378,12 @@ public class Level1 extends AppCompatActivity {
                     if (response.body().getStatus().equals("ok")) {
                         if (response.body().getResultCode() == 1) {
                             hiScore = response.body().getHiScore();
-                            Log.d("UPDATE PLAYER HI SCORE", "Player " + playerName + " Hi Score updated " + hiScore);
+                            Log.d("UPDATE PLAYER HI SCORE", "Player id" + playerId + " Hi Score updated " + hiScore);
                         }
                     } else if (response.body().getStatus().equals("failed")) {
                         if (response.body().getResultCode() == 2) {
-                            Log.d("UPDATE PLAYER HI SCORE", "No player name find. Player " + playerName);
-                        } else if (response.body().getResultCode() == 3){
+                            Log.d("UPDATE PLAYER HI SCORE", "Id not found. Player id " + playerId);
+                        } else if (response.body().getResultCode() == 3) {
                             Log.d("UPDATE PLAYER HI SCORE", "SQl error");
                         }
                     }
@@ -394,31 +394,31 @@ public class Level1 extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<ApiResponse> call, Throwable t) {
-
+                Log.d("UPDATE PLAYER HI SCORE", "Api Call fail. The error is: " + t);
             }
         });
     }
 
     private void updatePlayerStats() {
-        Call<ApiResponse> call = ApiClient.getApiClient().create(ApiInterface.class).updatePlayerStats(playerName, score);
+        Call<ApiResponse> call = ApiClient.getApiClient().create(ApiInterface.class).updatePlayerStats(playerId, score);
         call.enqueue(new Callback<ApiResponse>() {
             @Override
             public void onResponse(Call<ApiResponse> call, Response<ApiResponse> response) {
                 if(response.code() == 200) {
                     if (response.body().getStatus().equals("ok")) {
                         if (response.body().getResultCode() == 1) {
-                            Log.d("UPDATE PLAYER STATS", "Player " + playerName + " .Game played increased. Hi Score updated " + hiScore);
+                            Log.d("UPDATE PLAYER STATS", "Player id " + playerId + " .Game played increased. Hi Score updated " + hiScore);
                         } else {
-                            Log.d("UPDATE PLAYER STATS", "Player " + playerName + " .Game played increased.");
+                            Log.d("UPDATE PLAYER STATS", "Player id " + playerId + " .Game played increased.");
                         }
                     } else if (response.body().getStatus().equals("failed")) {
                         if (response.body().getResultCode() == 3) {
-                            Log.d("UPDATE PLAYER STATS", "Player " + playerName + " Failed to update Hi Score and Games played");
-                        } else if (response.body().getResultCode() == 4){
-                            Log.d("UPDATE PLAYER STATS", "Player " + playerName + " Failed to update Games played");
-                        } else if (response.body().getResultCode() == 5){
-                            Log.d("UPDATE PLAYER STATS", "Player " + playerName + " .No player found with this name");
-                        } else if (response.body().getResultCode() == 6){
+                            Log.d("UPDATE PLAYER STATS", "Player id " + playerId + " Failed to update Hi Score and Games played");
+                        } else if (response.body().getResultCode() == 4) {
+                            Log.d("UPDATE PLAYER STATS", "Player id " + playerId + " Failed to update Games played");
+                        } else if (response.body().getResultCode() == 5) {
+                            Log.d("UPDATE PLAYER STATS", "Player id " + playerId + " .No player found with this name");
+                        } else if (response.body().getResultCode() == 6) {
                             Log.d("UPDATE PLAYER STATS", "SQl error");
                         }
                     }
@@ -429,7 +429,7 @@ public class Level1 extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<ApiResponse> call, Throwable t) {
-
+                Log.d("UPDATE PLAYER STATS", "Api Call fail. The error is: " + t);
             }
         });
     }

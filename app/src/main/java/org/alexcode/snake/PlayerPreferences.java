@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 public class PlayerPreferences {
 
     private static final String PLAYER_PREFERENCE = "org.alexcode.snake";
+    private static final int PLAYER_ID = 0;
     private static final String PLAYER_NAME = "pref_player_name";
     private static final int GAMES_PLAYED = 0;
     private static final int HI_SCORE = 0;
@@ -19,19 +20,30 @@ public class PlayerPreferences {
         sharedPreferences = context.getSharedPreferences(PLAYER_PREFERENCE, Context.MODE_PRIVATE);
     }
 
-    public static void savePlayerData(String playerName, int gamesPlayed, int hiScore, String volume, String language, String gameMode) {
+    public static void savePlayerPreferences(int playerId, String playerName, int gamesPlayed, int hiScore, String volume, String language, String gameMode) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt("PLAYER_ID", playerId);
         editor.putString(PLAYER_NAME, playerName);
-        editor.putInt(String.valueOf(GAMES_PLAYED), gamesPlayed);
-        editor.putInt(String.valueOf(HI_SCORE), hiScore);
+        editor.putInt("GAMES_PLAYED", gamesPlayed);
+        editor.putInt("HI_SCORE", hiScore);
         editor.putString(VOLUME_CONTROL, volume);
         editor.putString(GAME_LANGUAGE, language);
         editor.putString(GAME_MODE, gameMode);
         editor.apply();
     }
 
+    public static int getPlayerId() {
+        return sharedPreferences.getInt("PLAYER_ID", 0);
+    }
+
     public static String getPlayerName() {
         return sharedPreferences.getString(PLAYER_NAME, "Player0");
+    }
+
+    public static void setPlayerNewName(String playerNewName) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(PLAYER_NAME, playerNewName);
+        editor.apply();
     }
 
     public static int getGamesPlayed() {

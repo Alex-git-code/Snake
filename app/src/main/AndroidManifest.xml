@@ -12,6 +12,7 @@
         android:roundIcon="@mipmap/icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".PlayerProfile"/>
         <activity android:name=".Level1" />
         <activity
             android:name=".MainActivity"
