@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -15,7 +16,7 @@ import retrofit2.Response;
 public class MainActivity extends AppCompatActivity {
     private Button startGame, profile, ranking, settings;
     private String playerName, volume, language, gameMode;
-    private int gamesPlayed, hiScore;
+    private int playerId, gamesPlayed, hiScore;
     private PlayerPreferences playerPreferences;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +32,13 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, PlayerProfile.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void initGameMenu() {
@@ -41,82 +49,85 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initPlayerData() {
+        playerId = playerPreferences.getPlayerId();
         playerName = playerPreferences.getPlayerName();
-        gamesPlayed =  playerPreferences.getGamesPlayed();
+        gamesPlayed = playerPreferences.getGamesPlayed();
         hiScore = playerPreferences.getHiScore();
         volume = playerPreferences.getVolume();
         language = playerPreferences.getGameLanguage();
         gameMode = playerPreferences.getGameMode();
-        if(playerName.equals("Player0")) {
+        if(playerId == 0) {
             createNewPlayer();
-            PlayerPreferences.savePlayerData(playerName, gamesPlayed, hiScore, volume, language, gameMode);
         } else {
             getPlayerData();
-            PlayerPreferences.savePlayerData(playerName, gamesPlayed, hiScore, volume, language, gameMode);
         }
     }
 
     private void createNewPlayer() {
-        Call<ApiResponse> call = ApiClient.getApiClient().create(ApiInterface.class).createNewPlayer(playerName);
+        Call<ApiResponse> call = ApiClient.getApiClient().create(ApiInterface.class).createNewPlayer(playerId);
         call.enqueue(new Callback<ApiResponse>() {
             @Override
             public void onResponse(Call<ApiResponse> call, Response<ApiResponse> response) {
                 if(response.code() == 200) {
                     if(response.body().getStatus().equals("ok")) {
                         if(response.body().getResultCode() == 1) {
+                            playerId = response.body().getId();
                             playerName  =  response.body().getName();
-                            Toast.makeText(MainActivity.this, "New account created", Toast.LENGTH_SHORT).show();
+                            PlayerPreferences.savePlayerPreferences(playerId, playerName, gamesPlayed, hiScore, volume, language, gameMode);
+                            Log.d("CREATE NEW PLAYER", "New player created with id " + playerId);
                         }
                     } else {
                         if (response.body().getResultCode() == 2) {
-                            Toast.makeText(MainActivity.this, "Cannot create new account", Toast.LENGTH_SHORT).show();
+                            Log.d("CREATE NEW PLAYER", "Cannot create new player");
                         } else if (response.body().getResultCode() == 3) {
-                            Toast.makeText(MainActivity.this, "The users table is empty", Toast.LENGTH_SHORT).show();
+                            Log.d("CREATE NEW PLAYER", "The users table is empty");
                         } else if (response.body().getResultCode() == 4) {
-                            Toast.makeText(MainActivity.this, "SQL query error", Toast.LENGTH_SHORT).show();
+                            Log.d("CREATE NEW PLAYER", "SQL query error");
                         }
                     }
                 } else {
-                    Toast.makeText(MainActivity.this, "Cannot connect to database. Please check the internet connection and open the game again", Toast.LENGTH_SHORT).show();
+                    Log.d("CREATE NEW PLAYER", "Cannot connect to database.");
                 }
             }
 
             @Override
             public void onFailure(Call<ApiResponse> call, Throwable t) {
-
+                Log.d("CREATE NEW PLAYER", "Api Call fail. The error is: " + t);
             }
         });
     }
 
     private void getPlayerData() {
-        Call<ApiResponse> call = ApiClient.getApiClient().create(ApiInterface.class).getPlayerData(playerName);
+        Call<ApiResponse> call = ApiClient.getApiClient().create(ApiInterface.class).getPlayerData(playerId);
         call.enqueue(new Callback<ApiResponse>() {
             @Override
             public void onResponse(Call<ApiResponse> call, Response<ApiResponse> response) {
                 if(response.code() == 200) {
                     if(response.body().getStatus().equals("ok")) {
                         if(response.body().getResultCode() == 1) {
+                            playerName = response.body().getName();
                             gamesPlayed = response.body().getGames_played();
                             hiScore =  response.body().getHiScore();
-                            Toast.makeText(MainActivity.this, "Player data loaded", Toast.LENGTH_SHORT).show();
+                            PlayerPreferences.savePlayerPreferences(playerId, playerName, gamesPlayed, hiScore, volume, language, gameMode);
+                            Log.d("GET PLAYER DATA", "Player data loaded. Player id: " + playerId);
                         }
                     } else {
                         if (response.body().getResultCode() == 2) {
-                            Toast.makeText(MainActivity.this, "Cannot load player data", Toast.LENGTH_SHORT).show();
+                            Log.d("GET PLAYER DATA", "Cannot load player data. Player id: " + playerId);
                         } else if (response.body().getResultCode() == 3) {
-                            Toast.makeText(MainActivity.this, "The players table is empty", Toast.LENGTH_SHORT).show();
+                            Log.d("GET PLAYER DATA", "The players table is empty");
                         } else if (response.body().getResultCode() == 4) {
-                            Toast.makeText(MainActivity.this, "SQL query error", Toast.LENGTH_SHORT).show();
+                            Log.d("GET PLAYER DATA", "SQL query error");
                         }
                     }
                 } else {
-                    Toast.makeText(MainActivity.this, "Cannot connect to database. Please check the internet connection and open the game again", Toast.LENGTH_SHORT).show();
+                    Log.d("GET PLAYER DATA", "Cannot connect to database.");
                 }
             }
 
             @Override
             public void onFailure(Call<ApiResponse> call, Throwable t) {
-
+                Log.d("GET PLAYER DATA", "Api Call fail. The error is: " + t);
             }
         });
     }

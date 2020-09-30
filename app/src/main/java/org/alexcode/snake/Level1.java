@@ -18,6 +18,9 @@ import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import java.util.Random;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class Level1 extends AppCompatActivity {
     Canvas canvas;
@@ -37,6 +40,7 @@ public class Level1 extends AppCompatActivity {
     int blockSize, numBlocksWide, numBlocksHigh, screenWidth, screenHeight;
     //score
     int score = 0, hiScore = 0;
+    int playerId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +48,8 @@ public class Level1 extends AppCompatActivity {
         configureDisplay();
         playGroundView = new PlayGroundView(this);
         setContentView(playGroundView);
+        playerId =  PlayerPreferences.getPlayerId();
+        updatePlayerHiScore();
     }
 
     class PlayGroundView extends SurfaceView implements Runnable {
@@ -157,6 +163,7 @@ public class Level1 extends AppCompatActivity {
                 //exit to gameMenu
                 Intent intent = new Intent(Level1.this, MainActivity.class);
                 startActivity(intent);
+                updatePlayerStats();
             }
             //change head bitmap
             if(directionOfTravel == 0) {
@@ -311,7 +318,7 @@ public class Level1 extends AppCompatActivity {
 
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            playGroundView.pause();
+            onPause();
             Intent i = new Intent(this, MainActivity.class);
             startActivity(i);
             return true;
@@ -360,5 +367,70 @@ public class Level1 extends AppCompatActivity {
         downSide = Bitmap.createScaledBitmap(downSide, blockSize * numBlocksWide, blockSize, false);
         leftSide = Bitmap.createScaledBitmap(leftSide, blockSize, blockSize * numBlocksHigh, false);
         rightSide = Bitmap.createScaledBitmap(rightSide, blockSize, blockSize * numBlocksHigh, false);
+    }
+
+    private void updatePlayerHiScore() {
+        Call<ApiResponse> call = ApiClient.getApiClient().create(ApiInterface.class).getPlayerHiScore(playerId);
+        call.enqueue(new Callback<ApiResponse>() {
+            @Override
+            public void onResponse(Call<ApiResponse> call, Response<ApiResponse> response) {
+                if(response.code() == 200) {
+                    if (response.body().getStatus().equals("ok")) {
+                        if (response.body().getResultCode() == 1) {
+                            hiScore = response.body().getHiScore();
+                            Log.d("UPDATE PLAYER HI SCORE", "Player id" + playerId + " Hi Score updated " + hiScore);
+                        }
+                    } else if (response.body().getStatus().equals("failed")) {
+                        if (response.body().getResultCode() == 2) {
+                            Log.d("UPDATE PLAYER HI SCORE", "Id not found. Player id " + playerId);
+                        } else if (response.body().getResultCode() == 3) {
+                            Log.d("UPDATE PLAYER HI SCORE", "SQl error");
+                        }
+                    }
+                } else {
+                    Log.d("UPDATE PLAYER HI SCORE", "Error connecting to database");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ApiResponse> call, Throwable t) {
+                Log.d("UPDATE PLAYER HI SCORE", "Api Call fail. The error is: " + t);
+            }
+        });
+    }
+
+    private void updatePlayerStats() {
+        Call<ApiResponse> call = ApiClient.getApiClient().create(ApiInterface.class).updatePlayerStats(playerId, score);
+        call.enqueue(new Callback<ApiResponse>() {
+            @Override
+            public void onResponse(Call<ApiResponse> call, Response<ApiResponse> response) {
+                if(response.code() == 200) {
+                    if (response.body().getStatus().equals("ok")) {
+                        if (response.body().getResultCode() == 1) {
+                            Log.d("UPDATE PLAYER STATS", "Player id " + playerId + " .Game played increased. Hi Score updated " + hiScore);
+                        } else {
+                            Log.d("UPDATE PLAYER STATS", "Player id " + playerId + " .Game played increased.");
+                        }
+                    } else if (response.body().getStatus().equals("failed")) {
+                        if (response.body().getResultCode() == 3) {
+                            Log.d("UPDATE PLAYER STATS", "Player id " + playerId + " Failed to update Hi Score and Games played");
+                        } else if (response.body().getResultCode() == 4) {
+                            Log.d("UPDATE PLAYER STATS", "Player id " + playerId + " Failed to update Games played");
+                        } else if (response.body().getResultCode() == 5) {
+                            Log.d("UPDATE PLAYER STATS", "Player id " + playerId + " .No player found with this name");
+                        } else if (response.body().getResultCode() == 6) {
+                            Log.d("UPDATE PLAYER STATS", "SQl error");
+                        }
+                    }
+                } else {
+                    Log.d("UPDATE PLAYER STATS", "Cannot connect to database");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ApiResponse> call, Throwable t) {
+                Log.d("UPDATE PLAYER STATS", "Api Call fail. The error is: " + t);
+            }
+        });
     }
 }

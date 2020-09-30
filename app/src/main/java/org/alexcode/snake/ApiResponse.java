@@ -7,6 +7,8 @@ public class ApiResponse {
     private String status;
     @SerializedName("result_code")
     private int resultCode;
+    @SerializedName("id")
+    private int id;
     @SerializedName("name")
     private String name;
     @SerializedName("hi_score")
@@ -20,6 +22,10 @@ public class ApiResponse {
 
     public int getResultCode() {
         return resultCode;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getName() {
