@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/player_profile"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/background"
+    tools:context=".PlayerProfile">
+
+    <ImageView
+        android:id="@+id/imgLogoSnake"
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="115dp"
+        android:contentDescription="@string/game_logo"
+        app:srcCompat="@mipmap/logo" />
+
+    <TextView
+        android:id="@+id/textPlayerName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imgLogoSnake"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:fontFamily="sans-serif-medium"
+        android:textSize="24sp"
+        android:text="@string/player_name"
+        android:textColor="@color/colorRed" />
+
+    <Button
+        android:id="@+id/btnEditPlayerName"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_below="@+id/imgLogoSnake"
+        android:layout_toEndOf="@id/textPlayerName"
+        android:layout_marginTop="36dp"
+        android:layout_marginStart="12dp"
+        android:background="@mipmap/edit"
+        />
+
+    <TextView
+        android:id="@+id/textPlayerGames"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textPlayerName"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:fontFamily="sans-serif-medium"
+        android:textSize="16sp"
+        android:text="@string/games_played"
+        android:textColor="@color/colorRed" />
+
+    <TextView
+        android:id="@+id/textGamesNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textPlayerGames"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:fontFamily="sans-serif-medium"
+        android:textSize="30sp"
+        android:textColor="@color/colorRed" />
+
+    <TextView
+        android:id="@+id/textPlayerHiScore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textGamesNumber"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:fontFamily="sans-serif-medium"
+        android:textSize="16sp"
+        android:text="@string/hi_score"
+        android:textColor="@color/colorRed" />
+
+    <TextView
+        android:id="@+id/textHiScore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textPlayerHiScore"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:fontFamily="sans-serif-medium"
+        android:textSize="30sp"
+        android:textColor="@color/colorRed" />
+
+    <Button
+        android:id="@+id/btnBackToMenu"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="@string/back_to_menu"
+        android:textSize="18sp"
+        android:background="@mipmap/button"
+        android:textColor="@color/colorYellow"
+        android:layout_below="@+id/textHiScore"
+        />
+
+</RelativeLayout>

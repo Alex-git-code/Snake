@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
         playerPreferences =  new PlayerPreferences(this);
         initGameMenu();
         initPlayerData();
-        startGame.setOnClickListener(new View.OnClickListener() {
+        startGame.setOnClickListener(new View.OnClickListener() {   
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, Level1.class);
@@ -36,6 +36,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, PlayerProfile.class);
+                startActivity(intent);
+            }
+        });
+        ranking.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent =  new Intent(MainActivity.this, Rankings.class);
                 startActivity(intent);
             }
         });
