@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/player_profile"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/background"
+    tools:context=".PlayerProfile">
+
+    <ImageView
+        android:id="@+id/imgLogoSnake"
+        android:layout_width="50dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@mipmap/logo" />
+
+    <TextView
+        android:id="@+id/textPlayerName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="@string/player_name"
+        android:textColor="@color/colorRed"
+        android:textSize="10sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgLogoSnake" />
+
+    <Button
+        android:id="@+id/btnEditPlayerName"
+        android:layout_width="9dp"
+        android:layout_height="9dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="10dp"
+        android:background="@mipmap/edit"
+        app:layout_constraintStart_toEndOf="@+id/textPlayerName"
+        app:layout_constraintTop_toBottomOf="@+id/imgLogoSnake" />
+
+    <TextView
+        android:id="@+id/textPlayerGames"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="@string/games_played"
+        android:textColor="@color/colorRed"
+        android:textSize="8sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textPlayerName" />
+
+    <TextView
+        android:id="@+id/textGamesNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="0"
+        android:textColor="@color/colorRed"
+        android:textSize="10sp"
+        app:layout_constraintEnd_toEndOf="@+id/textPlayerGames"
+        app:layout_constraintStart_toStartOf="@+id/textPlayerGames"
+        app:layout_constraintTop_toBottomOf="@+id/textPlayerGames" />
+
+    <TextView
+        android:id="@+id/textPlayerHiScore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="@string/hi_score"
+        android:textColor="@color/colorRed"
+        android:textSize="8sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textPlayerGames"
+        app:layout_constraintTop_toBottomOf="@+id/textPlayerName" />
+
+    <TextView
+        android:id="@+id/textHiScore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="0"
+        android:textColor="@color/colorRed"
+        android:textSize="10sp"
+        app:layout_constraintEnd_toEndOf="@+id/textPlayerHiScore"
+        app:layout_constraintStart_toStartOf="@+id/textPlayerHiScore"
+        app:layout_constraintTop_toBottomOf="@+id/textPlayerHiScore" />
+
+    <Button
+        android:id="@+id/BtnBackToMenu"
+        android:layout_width="120dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="16dp"
+        android:background="@mipmap/button"
+        android:fontFamily="sans-serif-medium"
+        android:text="@string/back_to_menu"
+        android:textColor="@color/colorYellow"
+        android:textSize="9sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textGamesNumber" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

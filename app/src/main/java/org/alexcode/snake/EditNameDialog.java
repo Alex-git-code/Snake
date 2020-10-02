@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
@@ -51,9 +52,14 @@ public class EditNameDialog extends AppCompatDialogFragment {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         newPlayerName = editTextPlayerName.getText().toString();
-                        playerId = PlayerPreferences.getPlayerId();
-                        if(!newPlayerName.equals(playerName)) {
-                            updatePlayerName();
+                        if(newPlayerName.length() > 15) {
+                            Toast.makeText(getContext(), "Player name maximum length can be 15 characters. including spaces.", Toast.LENGTH_SHORT).show();
+                        } else {
+                            playerId = PlayerPreferences.getPlayerId();
+                            if (!newPlayerName.equals(playerName)) {
+                                updatePlayerName();
+                                Toast.makeText(getContext(), "Player name has been changed", Toast.LENGTH_SHORT).show();
+                            }
                         }
                     }
                 });
