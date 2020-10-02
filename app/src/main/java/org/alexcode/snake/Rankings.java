@@ -8,17 +8,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import com.android.volley.Cache;
-import com.android.volley.Network;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.BasicNetwork;
-import com.android.volley.toolbox.DiskBasedCache;
-import com.android.volley.toolbox.HurlStack;
-import com.android.volley.toolbox.StringRequest;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.android.volley.*;
+import com.android.volley.toolbox.*;
+import org.json.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,6 +53,11 @@ public class Rankings extends AppCompatActivity {
         queue = new RequestQueue(cache, network);
         // Start the queue
         queue.start();
+        //adding our stringRequest to queue
+        queue.add(getPlayersList());
+    }
+
+    private StringRequest getPlayersList() {
         StringRequest stringRequest = new StringRequest(Request.Method.GET, URL_PLAYERS,
                 response -> {
                     try {
@@ -90,7 +87,6 @@ public class Rankings extends AppCompatActivity {
                 error -> {
                     Log.d("GET RANKINGS", "Api Call fail.");
                 });
-        //adding our stringRequest to queue
-        queue.add(stringRequest);
+        return stringRequest;
     }
 }

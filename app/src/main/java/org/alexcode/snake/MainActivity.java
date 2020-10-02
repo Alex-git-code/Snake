@@ -15,7 +15,7 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
     private Button startGame, profile, ranking, settings;
-    private String playerName, volume, language, gameMode;
+    private String playerName, music, fxSounds , language, gameMode;
     private int playerId, gamesPlayed, hiScore;
     private PlayerPreferences playerPreferences;
     @Override
@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
         playerPreferences =  new PlayerPreferences(this);
         initGameMenu();
         initPlayerData();
-        startGame.setOnClickListener(new View.OnClickListener() {   
+        startGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, Level1.class);
@@ -46,6 +46,13 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        settings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, Settings.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void initGameMenu() {
@@ -60,7 +67,8 @@ public class MainActivity extends AppCompatActivity {
         playerName = playerPreferences.getPlayerName();
         gamesPlayed = playerPreferences.getGamesPlayed();
         hiScore = playerPreferences.getHiScore();
-        volume = playerPreferences.getVolume();
+        music = playerPreferences.getMusic();
+        fxSounds = playerPreferences.getFxSounds();
         language = playerPreferences.getGameLanguage();
         gameMode = playerPreferences.getGameMode();
         if(playerId == 0) {
@@ -80,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
                         if(response.body().getResultCode() == 1) {
                             playerId = response.body().getId();
                             playerName  =  response.body().getName();
-                            PlayerPreferences.savePlayerPreferences(playerId, playerName, gamesPlayed, hiScore, volume, language, gameMode);
+                            PlayerPreferences.savePlayerPreferences(playerId, playerName, gamesPlayed, hiScore, music, fxSounds, language, gameMode);
                             Log.d("CREATE NEW PLAYER", "New player created with id " + playerId);
                         }
                     } else {
@@ -115,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
                             playerName = response.body().getName();
                             gamesPlayed = response.body().getGames_played();
                             hiScore =  response.body().getHiScore();
-                            PlayerPreferences.savePlayerPreferences(playerId, playerName, gamesPlayed, hiScore, volume, language, gameMode);
+                            PlayerPreferences.savePlayerPreferences(playerId, playerName, gamesPlayed, hiScore, music, fxSounds, language, gameMode);
                             Log.d("GET PLAYER DATA", "Player data loaded. Player id: " + playerId);
                         }
                     } else {
