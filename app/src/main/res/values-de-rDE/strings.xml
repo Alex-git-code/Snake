@@ -1,0 +1,27 @@
+<resources>
+    <string name = "app_name"> Schlange </string>
+    <string name = "start_game"> SPIEL STARTEN </string>
+    <string name = "profile"> Profil </string>
+    <string name = "ranking"> Rangfolge </string>
+    <string name = "settings"> Einstellungen </string>
+    <string name = "game_logo"> Spielelogo </string>
+    <string name = "player_name"> SPIELERNAME </string>
+    <string name = "games_played"> Gespielte Spiele </string>
+    <string name = "score">Ergebnis</string>
+    <string name = "hi_score"> Hi Score </string>
+    <string name = "back_to_menu"> ZURÜCK ZUM MENÜ </string>
+    <string name = "language"> Sprache </string>
+    <string name = "sounds"> Geräusche </string>
+    <string name = "game_mode"> Spielmodus </string>
+    <string name = "music"> Musik </string>
+    <string name = "save_settings"> speichern </string>
+    <string name="top_players">Top Spieler</string>
+    <string name="name">Spieler</string>
+    <string-array name = "available_languages">
+        <item> Englisch </item>
+        <item> Spanisch </item>
+        <item> Deutsch </item>
+        <item> Italienisch </item>
+        <item> Französisch </item>
+    </string-array>
+</resources>

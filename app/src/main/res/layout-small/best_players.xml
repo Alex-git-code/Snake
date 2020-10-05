@@ -23,7 +23,7 @@
         android:id="@+id/textPlayerScore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="70dp"
+        android:layout_marginStart="120dp"
         android:layout_marginTop="2dp"
         android:layout_toEndOf="@id/textPlayerName"
         android:text="@string/hi_score"

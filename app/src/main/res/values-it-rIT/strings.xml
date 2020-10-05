@@ -1,0 +1,27 @@
+<resources>
+    <string name = "app_name"> Snake </string>
+    <string name = "start_game"> INIZIA GIOCO </string>
+    <string name = "profile"> Profilo </string>
+    <string name = "ranking"> Ranking </string>
+    <string name = "settings"> Impostazioni </string>
+    <string name = "game_logo"> Logo del gioco </string>
+    <string name = "player_name"> NOME GIOCATORE </string>
+    <string name = "games_played"> Partite giocate </string>
+    <string name = "score">Punteggio</string>
+    <string name = "hi_score"> Alto punteggio </string>
+    <string name = "back_to_menu"> TORNA AL MENU </string>
+    <string name = "language"> Lingua </string>
+    <string name = "sounds"> Suoni FX </string>
+    <string name = "game_mode"> Modalità gioco </string>
+    <string name = "music"> Musica </string>
+    <string name = "save_settings"> Salva </string>
+    <string name="top_players">I migliori giocatori</string>
+    <string name="name">Giocatore</string>
+    <string-array name = "available_languages">
+        <item> Inglese </item>
+        <item> Spagnolo </item>
+        <item> Tedesco </item>
+        <item> Italiano </item>
+        <item> Francese </item>
+    </string-array>
+</resources>

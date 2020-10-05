@@ -12,13 +12,13 @@
         android:roundIcon="@mipmap/icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Settings"></activity>
+        <activity android:name=".Settings"/>
         <activity android:name=".Rankings" />
         <activity android:name=".PlayerProfile" />
         <activity android:name=".Level1" />
         <activity
             android:name=".MainActivity"
-            android:configChanges="orientation"
+            android:configChanges="locale|orientation"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

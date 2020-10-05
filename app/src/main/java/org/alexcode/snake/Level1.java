@@ -237,8 +237,7 @@ public class Level1 extends AppCompatActivity {
                 paint.setColor(Color.rgb(251, 222, 154));
                 paint.setTextSize(blockSize);
                 paint.setFakeBoldText(true);
-                canvas.drawText("Score: " + score, blockSize * 3, blockSize * 2, paint);
-                canvas.drawText("Hi Score: " + hiScore, blockSize * (numBlocksWide / 2), blockSize * 2, paint);
+                canvas.drawText(getString(R.string.score) + ": " + score, blockSize * 3, blockSize * 2, paint);
                 ourHolder.unlockCanvasAndPost(canvas);
             }
         }
