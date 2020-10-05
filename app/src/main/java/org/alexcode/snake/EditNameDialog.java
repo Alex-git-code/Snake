@@ -56,7 +56,7 @@ public class EditNameDialog extends AppCompatDialogFragment {
                             Toast.makeText(getContext(), "Player name maximum length can be 15 characters. including spaces.", Toast.LENGTH_SHORT).show();
                         } else {
                             playerId = PlayerPreferences.getPlayerId();
-                            if (!newPlayerName.equals(playerName)) {
+                            if(!newPlayerName.equals(playerName)) {
                                 updatePlayerName();
                                 Toast.makeText(getContext(), "Player name has been changed", Toast.LENGTH_SHORT).show();
                             }
